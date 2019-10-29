@@ -29,4 +29,4 @@ require (
 	gopkg.in/yaml.v2 v2.2.2
 )
 
-replace github.com/inverse-inc/packetfence/go => ../../
+    replace github.com/inverse-inc/packetfence/go => ../../
