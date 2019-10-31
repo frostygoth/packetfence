@@ -10,7 +10,6 @@ require (
 	github.com/google/uuid v1.1.1
 	github.com/gorilla/websocket v1.4.0
 	github.com/hashicorp/go-syslog v1.0.0
-	github.com/hashicorp/golang-lru v0.0.0-20180201235237-0fb14efe8c47 // indirect
 	github.com/inverse-inc/packetfence/go v0.0.0-00010101000000-000000000000
 	github.com/jimstudt/http-authentication v0.0.0-20140401203705-3eca13d6893a
 	github.com/julsemaan/certmagic v0.6.3-0.20191015203349-067e102ae4ff
@@ -29,4 +28,4 @@ require (
 	gopkg.in/yaml.v2 v2.2.2
 )
 
-    replace github.com/inverse-inc/packetfence/go => ../../
+replace github.com/inverse-inc/packetfence/go => ../../
