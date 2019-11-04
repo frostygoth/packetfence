@@ -69,6 +69,7 @@ require (
 	gopkg.in/asn1-ber.v1 v1.0.0-20181015200546-f715ec2f112d // indirect
 	gopkg.in/ldap.v2 v2.0.0-20171123045618-bb7a9ca6e4fb
 	layeh.com/radius v0.0.0-20180123164351-38e2cda15058
+	software.sslmate.com/src/go-pkcs12 v0.0.0-20190322163127-6e380ad96778
 )
 
 replace github.com/inverse-inc/packetfence => ../
