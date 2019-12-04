@@ -289,6 +289,50 @@ export const pfConfigurationProvisioningFields = {
       ]
     }
   },
+  enforce: () => {
+    return {
+      label: i18n.t('Enforce'),
+      text: i18n.t('Whether or not the provisioner should be enforced. This will trigger checks to validate the device is compliant with the provisioner during RADIUS authentication and on the captive portal.'),
+      fields: [
+        {
+          key: 'enforce',
+          component: pfFormRangeToggle,
+          attrs: {
+            values: { checked: 'enabled', unchecked: 'disabled' }
+          }
+        }
+      ]
+    }
+  },
+  apply_role: () => {
+    return {
+      label: i18n.t('Apply role'),
+      text: i18n.t('When enabled, this will apply the configured role to the endpoint if it is authorized in the provisioner.'),
+      fields: [
+        {
+          key: 'apply_role',
+          component: pfFormRangeToggle,
+          attrs: {
+            values: { checked: 'enabled', unchecked: 'disabled' }
+          }
+        }
+      ]
+    }
+  },
+  role_to_apply: ({ options: { meta = {} } } = {}) => {
+    return {
+      label: i18n.t('Role to apply'),
+      text: i18n.t('When "Apply role" is enabled, this defines the role to apply when the device is authorized with the provisioner.'),
+      fields: [
+        {
+          key: 'role_to_apply',
+          component: pfFormChosen,
+          attrs: pfConfigurationAttributesFromMeta(meta, 'role_to_apply'),
+          validators: pfConfigurationValidatorsFromMeta(meta, 'role_to_apply', i18n.t('Role to apply'))
+        }
+      ]
+    }
+  },
   category: ({ options: { meta = {} } } = {}) => {
     return {
       label: i18n.t('Roles'),
@@ -858,9 +902,12 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           tab: null, // ignore tabs
           fields: [
             pfConfigurationProvisioningFields.id(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.description(context),
             pfConfigurationProvisioningFields.category(context),
-            pfConfigurationProvisioningFields.oses(context)
+            pfConfigurationProvisioningFields.oses(context),
           ]
         }
       ]
@@ -872,10 +919,13 @@ export const pfConfigurationProvisioningViewFields = (context) => {
             ...[
               pfConfigurationProvisioningFields.id(context),
               pfConfigurationProvisioningFields.description(context),
+              pfConfigurationProvisioningFields.enforce(context),
+              pfConfigurationProvisioningFields.apply_role(context),
+              pfConfigurationProvisioningFields.role_to_apply(context),
               pfConfigurationProvisioningFields.category(context),
               pfConfigurationProvisioningFields.ssid(context),
               pfConfigurationProvisioningFields.broadcast(context),
-              pfConfigurationProvisioningFields.security_type(context)
+              pfConfigurationProvisioningFields.security_type(context),
             ],
             ...((form.security_type === 'WPA2')
               ? [
@@ -912,6 +962,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context)
           ]
@@ -924,9 +977,12 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
-            pfConfigurationProvisioningFields.ssid(context),
             pfConfigurationProvisioningFields.oses(context),
+            pfConfigurationProvisioningFields.ssid(context),
             pfConfigurationProvisioningFields.psk_size(context)
           ]
         }
@@ -938,6 +994,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.username(context),
             pfConfigurationProvisioningFields.password(context),
@@ -957,6 +1016,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.host(context),
@@ -978,6 +1040,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
             ...[
               pfConfigurationProvisioningFields.id(context),
               pfConfigurationProvisioningFields.description(context),
+              pfConfigurationProvisioningFields.enforce(context),
+              pfConfigurationProvisioningFields.apply_role(context),
+              pfConfigurationProvisioningFields.role_to_apply(context),
               pfConfigurationProvisioningFields.category(context),
               pfConfigurationProvisioningFields.ssid(context),
               pfConfigurationProvisioningFields.broadcast(context),
@@ -1027,6 +1092,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.username(context),
@@ -1047,6 +1115,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.client_id(context),
@@ -1074,6 +1145,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.host(context),
@@ -1093,6 +1167,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.client_id(context),
@@ -1114,6 +1191,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.username(context),
@@ -1133,6 +1213,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.username(context),
@@ -1152,6 +1235,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
             ...[
               pfConfigurationProvisioningFields.id(context),
               pfConfigurationProvisioningFields.description(context),
+              pfConfigurationProvisioningFields.enforce(context),
+              pfConfigurationProvisioningFields.apply_role(context),
+              pfConfigurationProvisioningFields.role_to_apply(context),
               pfConfigurationProvisioningFields.category(context),
               pfConfigurationProvisioningFields.ssid(context),
               pfConfigurationProvisioningFields.broadcast(context),
@@ -1192,6 +1278,9 @@ export const pfConfigurationProvisioningViewFields = (context) => {
           fields: [
             pfConfigurationProvisioningFields.id(context),
             pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
             pfConfigurationProvisioningFields.category(context),
             pfConfigurationProvisioningFields.oses(context),
             pfConfigurationProvisioningFields.applicationID(context),
