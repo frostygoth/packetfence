@@ -221,6 +221,19 @@ export const pfConfigurationProvisioningFields = {
       ]
     }
   },
+  tenant_code: ({ options: { meta = {} } } = {}) => {
+    return {
+      label: i18n.t('Tenant code'),
+      fields: [
+        {
+          key: 'tenant_code',
+          component: pfFormInput,
+          attrs: pfConfigurationAttributesFromMeta(meta, 'tenant_code'),
+          validators: pfConfigurationValidatorsFromMeta(meta, 'tenant_code', i18n.t('Tenant code'))
+        }
+      ]
+    }
+  },
   api_uri: ({ options: { meta = {} } } = {}) => {
     return {
       label: i18n.t('Api uri'),
@@ -1295,6 +1308,27 @@ export const pfConfigurationProvisioningViewFields = (context) => {
             pfConfigurationProvisioningFields.windows_agent_download_uri(context),
             pfConfigurationProvisioningFields.mac_osx_agent_download_uri(context),
             pfConfigurationProvisioningFields.domains(context)
+          ]
+        }
+      ]
+    case 'airwatch':
+      return [
+        {
+          tab: null, // ignore tabs
+          fields: [
+            pfConfigurationProvisioningFields.id(context),
+            pfConfigurationProvisioningFields.description(context),
+            pfConfigurationProvisioningFields.enforce(context),
+            pfConfigurationProvisioningFields.apply_role(context),
+            pfConfigurationProvisioningFields.role_to_apply(context),
+            pfConfigurationProvisioningFields.category(context),
+            pfConfigurationProvisioningFields.oses(context),
+            pfConfigurationProvisioningFields.host(context),
+            pfConfigurationProvisioningFields.port(context),
+            pfConfigurationProvisioningFields.protocol(context),
+            pfConfigurationProvisioningFields.api_username(context),
+            pfConfigurationProvisioningFields.api_password(context),
+            pfConfigurationProvisioningFields.tenant_code(context)
           ]
         }
       ]
